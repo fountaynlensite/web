@@ -1,0 +1,268 @@
+<!doctype html>
+
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ammar Sayur - Jual Sayur Segar</title>
+  <meta name="description" content="Ammar Sayur - Sayur segar dari ladang terus ke pinggan anda. Tempah online, ambil di gerai atau hantar ke rumah." />
+  <style>
+    :root{--accent:#2f855a;--bg:#f7f7f6;--card:#ffffff;--muted:#6b6b6b}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:var(--bg);color:#0f172a}
+    header{background:linear-gradient(90deg,rgba(47,133,90,0.95),rgba(72,163,101,0.95));color:white;padding:28px 16px}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.95)}
+    .hero{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:18px}
+    .hero-left{flex:1;min-width:260px}
+    .hero-right{flex:1;min-width:260px}
+    .cta{margin-top:12px}
+    .btn{background:var(--card);color:var(--accent);padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+    .btn-primary{background:white;color:var(--accent)}
+    .card{background:var(--card);border-radius:14px;padding:14px;box-shadow:0 6px 20px rgba(15,23,42,0.06)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+    .product{display:flex;flex-direction:column;gap:8px}
+    .product img{width:100%;height:140px;object-fit:cover;border-radius:10px}
+    .price{font-weight:700;color:var(--accent)}
+    .muted{color:var(--muted)}
+    .cart-btn{position:fixed;right:18px;bottom:18px;background:var(--accent);color:white;padding:12px 14px;border-radius:999px;border:none;box-shadow:0 8px 20px rgba(47,133,90,0.28);cursor:pointer}
+    .cart-count{background:white;color:var(--accent);padding:2px 8px;border-radius:999px;margin-left:8px;font-weight:700}
+    footer{padding:24px 0;color:var(--muted)}
+    .flex{display:flex;gap:12px;align-items:center}
+    .about{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    @media(max-width:760px){.about{grid-template-columns:1fr}
+      .hero{flex-direction:column}
+    }
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{max-width:520px;width:100%}
+    .qty{display:flex;gap:8px;align-items:center}
+    input[type=number]{width:84px;padding:8px;border-radius:8px;border:1px solid #e7e7e7}
+    .small{font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">AS</div>
+        <div>
+          <h1>Ammar Sayur</h1>
+          <p class="lead">Sayur segar dari ladang — ambil di gerai atau hantar terus ke rumah</p>
+        </div>
+      </div><div class="hero">
+    <div class="hero-left">
+      <div class="card">
+        <h2>Selamat datang ke kedai sayur Ammar</h2>
+        <p class="muted">Kami jual pelbagai sayur segar: bayam, kobis, cili, tomato dan banyak lagi. Semua dipilih setiap pagi untuk kualiti terbaik.</p>
+        <div class="cta">
+          <button class="btn btn-primary" onclick="scrollToProducts()">Lihat Produk</button>
+          <button class="btn" onclick="openOrderForm()">Tempah Sekarang</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="card">
+        <h3>Waktu Operasi</h3>
+        <p class="small">Isnin - Sabtu: 8:00 - 17:00<br>Ahad: Tutup (atau ikut waktu pasar tempatan)</p>
+        <h3 style="margin-top:12px">Lokasi</h3>
+        <p class="small">Gerai Ammar, Pasar Tani Kampung Baru (contoh). Untuk penghantaran gunakan borang tempahan.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </header>  <main class="container" style="margin-top:18px">
+    <section id="products">
+      <h2>Produk Kami</h2>
+      <p class="muted">Klik "Tambah" untuk masukkan ke troli. Harga adalah anggaran — boleh ubah ikut kampung / pasar.</p>
+      <div class="grid" id="productGrid" style="margin-top:12px"></div>
+    </section><section style="margin-top:24px">
+  <div class="about">
+    <div class="card">
+      <h3>Tentang Ammar</h3>
+      <p class="muted">Ammar merupakan penjual sayur tempatan yang memulakan perniagaan kecil dari pasar ke pasar. Matlamat Ammar adalah menyediakan sayur berkualiti pada harga berpatutan sambil menyokong petani tempatan.</p>
+
+      <h4 style="margin-top:12px">Servis</h4>
+      <ul>
+        <li>Penghantaran sekitar kawasan terpilih</li>
+        <li>Ambil sendiri di gerai</li>
+        <li>Tempahan borong untuk majlis</li>
+      </ul>
+
+      <h4 style="margin-top:12px">Hubungi</h4>
+      <p class="small">WhatsApp / Telefon: <strong>012-345 6789</strong><br>Email: <a href="mailto:ammar@sayur.com">ammar@sayur.com</a></p>
+    </div>
+
+    <div class="card">
+      <h3>Tempah Cepat</h3>
+      <p class="muted">Isi borang ringkas untuk tempahan atau pesanan khas.</p>
+      <form id="orderForm" onsubmit="submitOrder(event)">
+        <label class="small">Nama</label>
+        <input type="text" id="custName" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #e7e7e7;margin-top:6px;margin-bottom:8px">
+        <label class="small">Nombor Telefon</label>
+        <input type="text" id="custPhone" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #e7e7e7;margin-top:6px;margin-bottom:8px">
+        <label class="small">Alamat (untuk hantar)</label>
+        <input type="text" id="custAddr" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e7e7e7;margin-top:6px;margin-bottom:8px">
+        <label class="small">Catatan / Arahan</label>
+        <textarea id="custNote" style="width:100%;padding:8px;border-radius:8px;border:1px solid #e7e7e7;margin-top:6px;margin-bottom:8px"></textarea>
+        <button class="btn" type="submit">Hantar Tempahan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+  </main><button class="cart-btn" id="openCartBtn" onclick="toggleCart()">Troli <span class="cart-count" id="cartCount">0</span></button>
+
+  <div class="modal-backdrop" id="cartModal">
+    <div class="modal card">
+      <h3>Troli Anda</h3>
+      <div id="cartItems" style="margin-top:8px"></div>
+      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+        <div class="small muted">Jumlah:</div>
+        <div id="cartTotal" style="font-weight:800">RM0.00</div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+        <button class="btn" onclick="toggleCart()">Tutup</button>
+        <button class="btn btn-primary" onclick="checkout()">Checkout</button>
+      </div>
+    </div>
+  </div>  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+      <div>&copy; <span id="year"></span> Ammar Sayur</div>
+      <div class="muted small">Direka ringkas untuk perniagaan kecil</div>
+    </div>
+  </footer>  <script>
+    // Sample product data - edit / tambahkan sendiri
+    const products = [
+      {id:1,name:'Bayam',price:2.50,unit:'ikat',img:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2F4.bp.blogspot.com%2F-vkXZ8iCs2I4%2FVFDFBK-NonI%2FAAAAAAAABAM%2FxP5rhXxn3VE%2Fs1600%2Fbayam%252Bmerah.jpg&f=1&ipt=80cef4a3c397fabb94b8371cae2e4133a0ef501af5b3cc7e2d8236700a6a67a1'},
+      {id:2,name:'Kobis',price:4.00,unit:'sebiji',img:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi0.wp.com%2Fkpdsmart.kpdsabah.com%2Fwp-content%2Fuploads%2F2022%2F02%2FIMG-20220215-WA0003.jpg%3Ffit%3D800%252C776%26ssl%3D1&f=1&ipt=a04da8096da5b5d875ffaad6ee5c6f008227398a914ea3de71d1a5ba59b55b8c'},
+      {id:3,name:'Cili Merah',price:6.50,unit:'100g',img:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fkarangkraf-asset-files.s3-ap-southeast-1.amazonaws.com%2FMaskulin%2Fe7c5ea48942883d42dc08f7e85fb7bb2%2Fcili-merah.jpg&f=1&ipt=3afc148f96e53514f316af89b146b0f73a86502f1f98af20baaf1ed7a1086a19'},
+      {id:4,name:'Tomato',price:3.75,unit:'250g',img:'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F8%2F89%2FTomato_je.jpg&f=1&ipt=74243230b6dc54de70b8fd38f26b257d6ecac11085bdca35d34c856cc91c5786'},
+      {id:5,name:'Kangkong',price:2.00,unit:'ikat',img:'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fyummykitchentv.com%2Fwp-content%2Fuploads%2F2023%2F04%2FWATER-SPINACH_RESIZED1.jpg&f=1&ipt=2ff4428da74e3652fd869f709941254c318c4cab6d160a30217d3651cbb2236d'},
+      {id:6,name:'Ubi Kentang',price:3.20,unit:'kg',img:'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-g-K3zpcTUhg%2FVRiy1LtWnMI%2FAAAAAAAAE4s%2FvK5XDXZI4Zc%2Fs1600%2Fkentang1.jpg&f=1&ipt=5037d43406b4eee0cb14424f666596f65b591d1c8d59a3fcb528e1f3e83d38bb'}
+    ];
+
+    const cart = {};
+
+    function currency(n){return 'RM' + Number(n).toFixed(2)}
+
+    function renderProducts(){
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      products.forEach(p=>{
+        const el = document.createElement('div'); el.className='card product';
+        el.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" loading="lazy">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-weight:700">${p.name}</div>
+              <div class="muted small">${p.unit}</div>
+            </div>
+            <div style="text-align:right">
+              <div class="price">${currency(p.price)}</div>
+              <button class="btn" style="margin-top:8px" onclick="addToCart(${p.id})">Tambah</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+    }
+
+    function addToCart(id){
+      if(!cart[id]) cart[id]=0; cart[id]++;
+      updateCartBadge();
+      openToast('Berjaya tambah ke troli');
+    }
+
+    function updateCartBadge(){
+      const count = Object.values(cart).reduce((s,n)=>s+n,0);
+      document.getElementById('cartCount').innerText = count;
+    }
+
+    function toggleCart(){
+      const modal = document.getElementById('cartModal');
+      if(modal.style.display === 'flex') modal.style.display='none';
+      else{ renderCart(); modal.style.display='flex'; }
+    }
+
+    function renderCart(){
+      const container = document.getElementById('cartItems'); container.innerHTML='';
+      let total = 0;
+      if(Object.keys(cart).length===0){ container.innerHTML='<p class="muted">Keranjang kosong</p>'; }
+      Object.keys(cart).forEach(id=>{
+        const p = products.find(x=>x.id==id);
+        const qty = cart[id];
+        const subtotal = qty * p.price; total += subtotal;
+        const row = document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.marginBottom='8px';
+        row.innerHTML = `
+          <div style="flex:1">
+            <div style="font-weight:700">${p.name}</div>
+            <div class="muted small">${qty} x ${currency(p.price)}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:700">${currency(subtotal)}</div>
+            <div style="margin-top:6px;display:flex;gap:6px;justify-content:flex-end">
+              <button class="btn" onclick="changeQty(${id}, -1)">-</button>
+              <button class="btn" onclick="changeQty(${id}, 1)">+</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+      document.getElementById('cartTotal').innerText = currency(total);
+    }
+
+    function changeQty(id, delta){
+      if(!cart[id]) return;
+      cart[id] += delta; if(cart[id] <= 0) delete cart[id];
+      updateCartBadge(); renderCart();
+    }
+
+    function checkout(){
+      // For demo: collect order summary and open mailto
+      if(Object.keys(cart).length===0){ alert('Troli kosong — tambah produk dahulu'); return; }
+      let summary = 'Tempahan daripada Ammar Sayur%0A%0A';
+      let total = 0;
+      Object.keys(cart).forEach(id=>{
+        const p = products.find(x=>x.id==id); const qty = cart[id]; const sub = qty*p.price; total+=sub;
+        summary += `${p.name} x ${qty} = RM${sub.toFixed(2)}%0A`;
+      });
+      summary += `%0AJumlah: RM${total.toFixed(2)}%0A`;
+      summary += '%0ASila balas dengan nama, nombor telefon dan alamat penghantaran.%0A';
+      // open mail client as simple demo
+      window.location.href = `mailto:ammar@sayur.com?subject=Tempahan%20Ammar%20Sayur&body=${summary}`;
+    }
+
+    function scrollToProducts(){ document.getElementById('products').scrollIntoView({behavior:'smooth'}); }
+
+    function openOrderForm(){ document.getElementById('custName').focus(); window.scrollTo({top:600,behavior:'smooth'}); }
+
+    function submitOrder(e){
+      e.preventDefault();
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const addr = document.getElementById('custAddr').value.trim();
+      const note = document.getElementById('custNote').value.trim();
+      let body = `Tempahan dari ${name}%0ATelefon: ${phone}%0AAlamat: ${addr}%0A%0ACatatan: ${note}%0A`;
+      if(Object.keys(cart).length>0){ body += '%0AItem dari troli:%0A'; Object.keys(cart).forEach(id=>{ const p=products.find(x=>x.id==id); body += `${p.name} x ${cart[id]}%0A`; }); }
+      window.location.href = `mailto:ammar@sayur.com?subject=Tempahan%20Laman%20Web&body=${body}`;
+    }
+
+    function openToast(msg){
+      // small ephemeral message
+      const t = document.createElement('div'); t.innerText = msg; t.style.position='fixed'; t.style.left='50%'; t.style.transform='translateX(-50%)'; t.style.bottom='90px'; t.style.background='rgba(15,23,42,0.9)'; t.style.color='white'; t.style.padding='8px 12px'; t.style.borderRadius='8px'; t.style.zIndex=9999; document.body.appendChild(t);
+      setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(),400) },1400);
+    }
+
+    // Init
+    document.getElementById('year').innerText = new Date().getFullYear();
+    renderProducts(); updateCartBadge();
+
+    // close modal when clicking outside
+    document.getElementById('cartModal').addEventListener('click', (e)=>{ if(e.target.id==='cartModal') e.target.style.display='none'; })
+  </script></body>
+</html>
